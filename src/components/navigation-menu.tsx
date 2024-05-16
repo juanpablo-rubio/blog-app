@@ -21,9 +21,9 @@ export function NavigationMenu() {
           <Bird className="h-6 w-6" />
         </Link>
         <Link
-          href="#"
+          href="/posts"
           className={cn(
-            linkColor("#"),
+            linkColor("/posts"),
             "transition-colors hover:text-foreground",
           )}
         >
@@ -66,8 +66,8 @@ export function NavigationMenu() {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
-              href="#"
-              className={cn(linkColor("#"), "hover:text-foreground")}
+              href="/posts"
+              className={cn(linkColor("/posts"), "hover:text-foreground")}
             >
               Posts
             </Link>

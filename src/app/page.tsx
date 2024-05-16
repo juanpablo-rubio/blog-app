@@ -9,7 +9,7 @@ export default function Home() {
         Welcome to our Blog!
       </h1>
       <Link
-        href="#"
+        href="/posts"
         className="z-1 px-5 py-4 rounded-lg transition-colors hover:bg-secondary"
       >
         <h2 className="mb-3 text-2xl font-semibold">Explore Posts</h2>
