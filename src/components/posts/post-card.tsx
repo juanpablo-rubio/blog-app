@@ -1,8 +1,11 @@
 "use client";
 
+import PostDeleteDialog from "@/components/posts/post-delete-dialog";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { CardContent, Card } from "@/components/ui/card";
 import { Post } from "@/types/Post";
+import { deletePost } from "@/server-actions/posts";
 
 type PostCardProps = {
   post: Post;
@@ -14,6 +17,10 @@ export default function PostCard({ post }: PostCardProps) {
       .split(" ")
       .map((word) => word[0].toUpperCase())
       .join("");
+  };
+
+  const handleDeleteConfirmation = async () => {
+    await deletePost({ id: post.id });
   };
 
   return (
@@ -30,8 +37,11 @@ export default function PostCard({ post }: PostCardProps) {
             </span>
           </div>
           <p className="text-sm leading-relaxed">{post.body}</p>
-          <div className="text-xs text-muted-foreground">
-            18:42 PM - May 15, 2024
+          <div className="flex items-center justify-between">
+            <div className="text-xs text-muted-foreground">
+              18:42 PM - May 15, 2024
+            </div>
+            <PostDeleteDialog onDeleteConfirmation={handleDeleteConfirmation} />
           </div>
         </div>
       </CardContent>

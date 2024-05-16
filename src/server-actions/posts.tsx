@@ -3,6 +3,7 @@
 import { Post } from "@/types/Post";
 import { PrismaClient } from "@prisma/client";
 import { paginationParams } from "@/app/posts/_config/pagination-params";
+import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -59,4 +60,13 @@ export async function fetchPostsPages({
     const postsCount = await prisma.post.count();
     return Math.ceil(postsCount / postsPerPage);
   }
+}
+
+export async function deletePost({ id }: { id: number }): Promise<void> {
+  await prisma.post.delete({
+    where: {
+      id: id,
+    },
+  });
+  revalidatePath("/posts");
 }
