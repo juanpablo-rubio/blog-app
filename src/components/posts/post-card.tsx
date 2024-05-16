@@ -6,12 +6,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { CardContent, Card } from "@/components/ui/card";
 import { Post } from "@/types/Post";
 import { deletePost } from "@/server-actions/posts";
+import { useToast } from "@/components/ui/use-toast";
 
 type PostCardProps = {
   post: Post;
 };
 
 export default function PostCard({ post }: PostCardProps) {
+  const { toast } = useToast();
+
   const getInitials = (name: string) => {
     return name
       .split(" ")
@@ -20,7 +23,21 @@ export default function PostCard({ post }: PostCardProps) {
   };
 
   const handleDeleteConfirmation = async () => {
-    await deletePost({ id: post.id });
+    try {
+      await deletePost({ id: post.id });
+      toast({
+        duration: 4000,
+        title: "Post deleted",
+        description: `Post ${post.id} has been deleted`,
+      });
+    } catch (e) {
+      toast({
+        duration: 4000,
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "There was a problem while trying to delete the post",
+      });
+    }
   };
 
   return (
