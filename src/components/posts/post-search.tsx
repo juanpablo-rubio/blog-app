@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useDebouncedCallback } from 'use-debounce';
 import { Input } from "@/components/ui/input";
 
 type PostSearchProps = {
@@ -12,7 +13,7 @@ export default function PostSearch({ placeholder }: PostSearchProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (term: string) => {
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
     if (term) {
@@ -21,7 +22,7 @@ export default function PostSearch({ placeholder }: PostSearchProps) {
       params.delete("userId");
     }
     replace(`${pathname}?${params.toString()}`);
-  }
+  }, 500); 
 
   return (
     <div className="flex w-full max-w-sm mb-6 space-x-2">
