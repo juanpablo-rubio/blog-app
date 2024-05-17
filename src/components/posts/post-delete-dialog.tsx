@@ -32,7 +32,7 @@ export default function PostDeleteDialog({
       <AlertDialogTrigger 
         className="rounded-md text-red-500 h-10 w-10 transition-colors hover:bg-red-100 dark:hover:bg-red-900"
       >
-        <TrashIcon className="h-4 w-4 mx-auto" />
+        <TrashIcon data-testid="trash-icon-id" className="h-4 w-4 mx-auto" />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
